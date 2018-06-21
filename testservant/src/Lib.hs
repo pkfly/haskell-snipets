@@ -18,6 +18,8 @@ data User = User
   , userLastName  :: String
   } deriving (Eq, Show)
 
+
+
 $(deriveJSON defaultOptions ''User)
 
 type API = "users" :> Get '[JSON] [User]
