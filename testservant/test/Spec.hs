@@ -6,6 +6,7 @@ import Lib (app)
 import Test.Hspec
 import Test.Hspec.Wai
 import Test.Hspec.Wai.JSON
+import Test.QuickCheck
 
 main :: IO ()
 main = hspec spec
@@ -18,3 +19,7 @@ spec = with (return app) $
     it "responds with [User]" $ do
         let users = "[{\"userId\":1,\"userFirstName\":\"Isaac\",\"userLastName\":\"Newton\"},{\"userId\":2,\"userFirstName\":\"Albert\",\"userLastName\":\"Einstein\"}]"
         get "/users" `shouldRespondWith` users
+
+
+instance Arbitrary User where
+  arbitrary = User <$> arbitrary <*> arbitrary <*> arbitrary

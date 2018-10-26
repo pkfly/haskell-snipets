@@ -11,7 +11,7 @@ import Data.Aeson.TH
 import Network.Wai
 import Network.Wai.Handler.Warp
 import Servant
-import Test.QuickCheck
+import Control.Monad.Reader
 
 data User = User
   { userId        :: Int
@@ -42,6 +42,9 @@ users = [ User 1 "Isaac" "Newton"
         , User 2 "Albert" "Einstein"
         ]
 
+counter :: Reader Int Int
+counter = do 
+  x <- ask
+  y <- local (+1) counter
+  return x
 
-instance Arbitrary User where
-  arbitrary = User <$> arbitrary <*> arbitrary <*> arbitrary
